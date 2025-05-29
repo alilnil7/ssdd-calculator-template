@@ -9,7 +9,10 @@ To locally install the package, just run
 ```
 pip install .
 ```
-
+For installing kafka
+```
+pip install confluent-kafka
+```
 Or, if you want to modify it during your development,
 
 ```
