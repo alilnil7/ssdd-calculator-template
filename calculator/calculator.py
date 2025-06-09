@@ -24,7 +24,7 @@ class Calculator(IceCalculator):
     def div(self, a: float, b: float, current=None) -> float:
         """Деление двух чисел."""
         if b == 0:
-            raise ZeroDivisionError()  # Используем импортированное исключение
+            raise ZeroDivisionError()  # Используем импортированный ZeroDivisionError
         return a / b
     """Divide two numbers."""
     """BAD skeleton for the implementation (missing parent class)."""

@@ -32,7 +32,7 @@ class KafkaHandler:
         )
 
     def process_messages(self):
-        print(f"🟢 KafkaHandler слушает topic '{self.input_topic}'...")
+        print(f" KafkaHandler listen topic '{self.input_topic}'...")
 
         try:
             while True:
@@ -41,12 +41,12 @@ class KafkaHandler:
                     continue
                 if msg.error():
                     if msg.error().code() != KafkaError._PARTITION_EOF:
-                        print(f"⚠️ Kafka error: {msg.error()}")
+                        print(f" Kafka error: {msg.error()}")
                     continue
 
                 raw_value = msg.value()
                 if not raw_value:
-                    print("⚠️ Пустое сообщение.")
+                    print(" Empty message.")
                     continue
 
                 try:
@@ -78,12 +78,12 @@ class KafkaHandler:
                 try:
                     result = getattr(self.ice_client, op)(op1, op2)
                     self._send_response(msg_id, result)
-                    print(f"✅ Выполнена операция {op}({op1}, {op2}) = {result}")
+                    print(f" Operation completed {op}({op1}, {op2}) = {result}")
                 except Exception as ice_error:
                     self._send_error(msg_id, f"ICE error: {str(ice_error)}")
 
         except KeyboardInterrupt:
-            print("🛑 Остановлено пользователем.")
+            print(" Stopped by user.")
         finally:
             self.consumer.close()
             self.communicator.destroy()
@@ -105,4 +105,4 @@ class KafkaHandler:
         }
         self.producer.produce(self.output_topic, json.dumps(message).encode('utf-8'))
         self.producer.flush()
-        print(f"❌ Ошибка [{msg_id}]: {reason}")
+        print(f"Error [{msg_id}]: {reason}")
